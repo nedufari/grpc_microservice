@@ -1,0 +1,62 @@
+syntax = "proto3";
+
+package adminauth;
+
+
+service AdminsService{
+    rpc CreateAdmin (CreateAdminDto) returns (Admin){}
+    rpc FindAllAdmin (Empty) returns (Admins){}
+    rpc FndOneAdmin (FindAdminDto) returns (Admin){}
+    rpc UpdateAdmin (UpdateAdminDto) returns (Admin){}
+    rpc RemoveAdmin (RemoveAdminDto) returns (Admin){}
+    rpc QueryAdmins (stream PaginationDto) returns (stream Admins) {}
+}
+
+message PaginationDto{
+    int32 page =1;
+    int32 skip =2;
+}
+
+message CreateAdminDto {
+    string username  =1;
+    string password =2;
+    int32 age =3;
+}
+
+message FindAdminDto{
+    string id =1;
+}
+
+message UpdateAdminDto{
+    string id = 1;
+    SocialMedia socialmedia =2;
+}
+
+message RemoveAdminDto{
+    string id = 1;
+}
+
+
+
+message Empty {};
+
+message Admins {
+    repeated Admin admins =1;
+}
+
+
+message Admin{
+    string id =1;
+    string username =2;
+    string password =3;
+    int32 age =4; 
+    bool subscribed = 5;
+    SocialMedia socialmedia  =6;
+
+}
+
+
+message SocialMedia {
+    string twitteruri =1;
+    string fburi =2;
+}
